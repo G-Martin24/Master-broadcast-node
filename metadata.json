@@ -1,0 +1,6 @@
+{
+  "name": "Rock & Metal Radio Online",
+  "description": "Reproductor de radio online en vivo de Rock y Metal con ecualizador animado y metadatos en directo.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
