@@ -1,6 +1,7 @@
 import React from 'react';
 import { Radio, Disc, Sparkles } from 'lucide-react';
 import { StreamStatus } from '../types';
+import rockLogoImg from '../assets/images/rock_metal_radio_logo_1792430917541.jpg';
 
 interface CoverArtCardProps {
   coverUrl: string;
@@ -43,7 +44,7 @@ export function CoverArtCard({
             className={`w-full h-full object-cover transition-transform duration-700 ${isPlaying ? 'scale-105' : 'scale-100 group-hover:scale-105'}`}
             onError={(e) => {
               e.currentTarget.onerror = null;
-              e.currentTarget.src = '/src/assets/images/rock_metal_radio_logo_1792430917541.jpg';
+              e.currentTarget.src = rockLogoImg || '/logo-rock-metal.jpg';
             }}
           />
 

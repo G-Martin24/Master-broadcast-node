@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500">
+  <defs>
+    <filter id="subtleShadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+  <!-- Background Container -->
+  <rect width="500" height="500" rx="20" fill="#0c0c0e"/>
+  
+  <!-- Main Logo Split Square -->
+  <g transform="translate(60, 60)" filter="url(#subtleShadow)">
+    <!-- Left Half: Dark / Charcoal Black -->
+    <rect x="0" y="0" width="190" height="380" fill="#18181b"/>
+    <!-- Right Half: Electric Blue -->
+    <rect x="190" y="0" width="190" height="380" fill="#0062B8"/>
+    
+    <!-- Central Divider Hairline -->
+    <line x1="190" y1="0" x2="190" y2="380" stroke="#000000" stroke-width="2" opacity="0.4"/>
+    
+    <!-- Letter O (Row 1 Left) -->
+    <path d="M 60 25 L 145 25 L 145 105 L 60 105 Z M 95 50 L 110 50 L 110 80 L 95 80 Z" fill="#FFFFFF"/>
+    
+    <!-- Letter K (Row 1 Right) -->
+    <path d="M 235 25 L 265 25 L 265 52 L 295 25 L 335 25 L 285 64 L 340 105 L 300 105 L 265 76 L 265 105 L 235 105 Z" fill="#FFFFFF"/>
+    
+    <!-- Letter T (Row 2 Left) -->
+    <path d="M 50 120 L 155 120 L 155 145 L 118 145 L 118 200 L 87 200 L 87 145 L 50 145 Z" fill="#FFFFFF"/>
+    
+    <!-- Letter U (Row 2 Right) -->
+    <path d="M 235 120 L 265 120 L 265 175 L 305 175 L 305 120 L 335 120 L 335 200 L 235 200 Z" fill="#FFFFFF"/>
+    
+    <!-- Letter B (Row 3 Left) -->
+    <path d="M 60 215 L 135 215 C 150 215 155 225 155 235 C 155 243 148 250 138 252 C 150 255 156 264 156 275 C 156 288 145 295 130 295 L 60 295 Z M 90 233 L 90 246 L 125 246 C 128 246 131 244 131 240 C 131 235 128 233 125 233 Z M 90 263 L 90 277 L 126 277 C 129 277 132 275 132 270 C 132 265 129 263 126 263 Z" fill="#FFFFFF"/>
+    
+    <!-- Letter R (Row 3 Right) -->
+    <path d="M 235 215 L 310 215 C 328 215 338 226 338 242 C 338 255 330 264 316 267 L 340 295 L 305 295 L 285 270 L 265 270 L 265 295 L 235 295 Z M 265 233 L 265 252 L 300 252 C 306 252 310 249 310 242 C 310 236 306 233 300 233 Z" fill="#FFFFFF"/>
+    
+    <!-- FM 89.1 (Row 4 Left) -->
+    <g transform="translate(60, 312)">
+      <text x="0" y="24" font-family="'Russo One', 'Oswald', 'Arial Black', sans-serif" font-weight="900" font-size="24" fill="#FFFFFF" letter-spacing="1">FM</text>
+      <text x="0" y="50" font-family="'Russo One', 'Oswald', 'Arial Black', sans-serif" font-weight="900" font-size="28" fill="#FFFFFF" letter-spacing="1">89.1</text>
+    </g>
+    
+    <!-- Letter E (Row 4 Right) -->
+    <path d="M 235 310 L 335 310 L 335 332 L 265 332 L 265 345 L 325 345 L 325 365 L 265 365 L 265 378 L 335 378 L 335 400 L 235 400 Z" transform="translate(0, -10)" fill="#FFFFFF"/>
+  </g>
+</svg>

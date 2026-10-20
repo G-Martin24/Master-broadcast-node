@@ -6,13 +6,10 @@
 import React, { useState, useEffect } from 'react';
 import {
   Radio,
-  Wifi,
-  WifiOff,
   Flame,
   Volume2,
   Calendar,
   Sparkles,
-  Smartphone,
   Monitor,
   Headphones,
   Sliders,
@@ -29,9 +26,11 @@ import { MetallicBanner, SocialButtons, FooterKicker } from './components/Footer
 import { SettingsDrawer } from './components/SettingsDrawer';
 import { useLiveMetadata } from './hooks/useLiveMetadata';
 import { LiveMetadataModal } from './components/LiveMetadataModal';
+import defaultRadioLogo from './assets/images/rock_metal_radio_logo_1792430917541.jpg';
+import skullCoverImg from './assets/images/rock_metal_cover_1792428846792.jpg';
 
 const DEFAULT_STREAM_URL = 'https://cesarradio.realserver.es/listen/rock_y_metal/radio.mp3';
-const DEFAULT_COVER = '/src/assets/images/rock_metal_radio_logo_1792430917541.jpg';
+const DEFAULT_COVER = defaultRadioLogo || '/logo-rock-metal.jpg';
 
 const DEFAULT_CONFIG: StationConfig = {
   stationName: 'ROCK & METAL',
@@ -90,13 +89,13 @@ const TRACK_DEMOS = [
     artist: 'Rock & Metal Radio',
     track: 'Radio Online • En Vivo',
     album: 'ROCK Y MAS ROCK 100%',
-    cover: '/src/assets/images/rock_metal_radio_logo_1792430917541.jpg',
+    cover: defaultRadioLogo || '/logo-rock-metal.jpg',
   },
   {
     artist: 'Metallica',
     track: 'Master of Puppets',
     album: 'MASTER OF PUPPETS (1986)',
-    cover: '/src/assets/images/rock_metal_cover_1792428846792.jpg',
+    cover: skullCoverImg || '/assets/images/rock_metal_cover_1792428846792.jpg',
   },
   {
     artist: 'Iron Maiden',
@@ -136,6 +135,9 @@ export default function App() {
         }
         if (parsed.streamUrl?.includes('streamtheworld') || !parsed.streamUrl) {
           parsed.streamUrl = DEFAULT_STREAM_URL;
+        }
+        if (parsed.coverUrl?.startsWith('/src/')) {
+          parsed.coverUrl = DEFAULT_CONFIG.coverUrl;
         }
 
         // Migrate social links if they were generic placeholders
@@ -178,7 +180,7 @@ export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMetadataModalOpen, setIsMetadataModalOpen] = useState(false);
   const [demoIndex, setDemoIndex] = useState(0);
-  const [desktopViewMode, setDesktopViewMode] = useState<'mobile-frame' | 'studio-desk'>('mobile-frame');
+  const [desktopViewMode, setDesktopViewMode] = useState<'player' | 'studio-desk'>('player');
 
   // Real-time metadata from https://cesarradio.realserver.es/public/rock_y_metal
   const {
@@ -288,15 +290,15 @@ export default function App() {
         <div className="flex items-center gap-2">
           <div className="flex items-center bg-zinc-900 border border-white/10 rounded-lg p-0.5">
             <button
-              onClick={() => setDesktopViewMode('mobile-frame')}
+              onClick={() => setDesktopViewMode('player')}
               className={`px-3 py-1 rounded text-xs font-medium flex items-center gap-1.5 transition-colors ${
-                desktopViewMode === 'mobile-frame'
+                desktopViewMode === 'player'
                   ? 'bg-zinc-800 text-white shadow-sm'
                   : 'text-zinc-400 hover:text-white'
               }`}
             >
-              <Smartphone size={13} />
-              <span>Chasis Móvil</span>
+              <Music size={13} />
+              <span>Reproductor</span>
             </button>
             <button
               onClick={() => setDesktopViewMode('studio-desk')}
@@ -321,108 +323,83 @@ export default function App() {
         </div>
       </div>
 
-      {/* Main Container */}
+      {/* Main Container - starts directly with the player on mobile */}
       <main className="flex-1 w-full max-w-7xl mx-auto flex items-center justify-center p-2 sm:p-4 lg:p-6">
-        {/* Layout Mode A: Mobile Phone Mockup Frame (Faithful to Reference Image) */}
-        {desktopViewMode === 'mobile-frame' ? (
+        {desktopViewMode === 'player' ? (
           <div className="w-full flex items-center justify-center">
-            {/* The Phone Bezel Container */}
-            <div className="relative w-full max-w-[420px] rounded-[38px] p-2 sm:p-3 bg-gradient-to-b from-[#2a2a2e] via-[#151518] to-[#0d0d10] shadow-[0_25px_60px_rgba(0,0,0,0.95),0_0_20px_rgba(229,9,20,0.15)] border-2 border-zinc-700/60 transition-all duration-300">
-              {/* Outer Phone Ring Highlights */}
-              <div className="absolute inset-0 rounded-[36px] pointer-events-none border border-white/10" />
+            {/* Direct Player Console (Edge-to-Edge responsive card, zero phone frames or status bars) */}
+            <div className="relative w-full max-w-[460px] rounded-2xl md:rounded-3xl overflow-hidden bg-gradient-to-b from-[#09090b] via-[#0c0c0f] to-[#050507] border border-white/10 flex flex-col justify-between p-3 sm:p-4 shadow-[0_15px_40px_rgba(0,0,0,0.9),0_0_25px_rgba(229,9,20,0.12)]">
+              {/* Ambient Red Glow Backlight in background */}
+              <div className="absolute -top-12 -left-12 w-48 h-48 bg-red-600/10 rounded-full blur-3xl pointer-events-none" />
+              <div className="absolute -bottom-12 -right-12 w-48 h-48 bg-red-600/10 rounded-full blur-3xl pointer-events-none" />
 
-              {/* Speaker & Camera Notch Bar */}
-              <div className="w-full flex items-center justify-between px-6 pt-1 pb-2">
-                <span className="text-[11px] font-mono font-bold text-zinc-400">10:24</span>
-                {/* Speaker pill */}
-                <div className="w-16 h-1.5 rounded-full bg-zinc-800 border border-white/5" />
-                <div className="flex items-center gap-1 text-zinc-400 text-[10px]">
-                  <Wifi size={12} className={status === 'playing' ? 'text-red-500' : ''} />
-                  <span>82%</span>
-                </div>
+              {/* Header with rock emblem & title - starts directly at top */}
+              <RockHeader
+                stationName={config.stationName}
+                subtitle={config.subtitle}
+                iconType={config.iconType}
+                onOpenMenu={() => setIsMenuOpen(true)}
+                sleepTimerSeconds={sleepTimer}
+              />
+
+              {/* Center Main Cover Card */}
+              <div className="mt-2.5">
+                <CoverArtCard
+                  coverUrl={activeCover}
+                  artist={activeArtist}
+                  track={activeTrack}
+                  album={activeAlbum}
+                  status={status}
+                  stationName={activeStationName}
+                  listenersCount={listenersCount}
+                  onOpenMetadata={() => setIsMetadataModalOpen(true)}
+                  onNextTrackPreset={handleNextDemoTrack}
+                />
               </div>
 
-              {/* Inner Screen Surface */}
-              <div className="relative w-full rounded-[28px] overflow-hidden bg-gradient-to-b from-[#09090b] via-[#0c0c0f] to-[#050507] border border-white/5 flex flex-col justify-between p-3.5 shadow-inner">
-                {/* Ambient Red Glow Backlight in background */}
-                <div className="absolute -top-12 -left-12 w-48 h-48 bg-red-600/10 rounded-full blur-3xl pointer-events-none" />
-                <div className="absolute -bottom-12 -right-12 w-48 h-48 bg-red-600/10 rounded-full blur-3xl pointer-events-none" />
-
-                {/* Header with rock emblem & title */}
-                <RockHeader
-                  stationName={config.stationName}
-                  subtitle={config.subtitle}
-                  iconType={config.iconType}
-                  onOpenMenu={() => setIsMenuOpen(true)}
-                  sleepTimerSeconds={sleepTimer}
+              {/* Main Player Controls: Play/Pause, Volume Slider */}
+              <div className="mt-2">
+                <PlayerControls
+                  status={status}
+                  volume={volume}
+                  isMuted={isMuted}
+                  errorMessage={errorMessage}
+                  onTogglePlay={togglePlay}
+                  onReconnect={reconnect}
+                  onVolumeChange={setVolume}
+                  onToggleMute={toggleMute}
+                  onOpenPlaylist={() => setIsMetadataModalOpen(true)}
+                  onOpenSettings={() => setIsMenuOpen(true)}
                 />
+              </div>
 
-                {/* Center Main Cover Card */}
-                <div className="mt-2">
-                  <CoverArtCard
-                    coverUrl={activeCover}
-                    artist={activeArtist}
-                    track={activeTrack}
-                    album={activeAlbum}
-                    status={status}
-                    stationName={activeStationName}
-                    listenersCount={listenersCount}
-                    onOpenMetadata={() => setIsMetadataModalOpen(true)}
-                    onNextTrackPreset={handleNextDemoTrack}
-                  />
-                </div>
+              {/* Animated Equalizer Visualizer */}
+              <div className="mt-2">
+                <EqualizerVisualizer
+                  analyserNode={analyserRef.current}
+                  status={status}
+                  volume={volume}
+                  isMuted={isMuted}
+                  barCount={13}
+                />
+              </div>
 
-                {/* Main Player Controls: Play/Pause, Volume Slider */}
-                <div className="mt-1">
-                  <PlayerControls
-                    status={status}
-                    volume={volume}
-                    isMuted={isMuted}
-                    errorMessage={errorMessage}
-                    onTogglePlay={togglePlay}
-                    onReconnect={reconnect}
-                    onVolumeChange={setVolume}
-                    onToggleMute={toggleMute}
-                    onOpenPlaylist={() => setIsMetadataModalOpen(true)}
-                    onOpenSettings={() => setIsMenuOpen(true)}
-                  />
-                </div>
+              {/* Secondary Metallic Banner */}
+              <div className="mt-2.5">
+                <MetallicBanner
+                  stationName={activeStationName}
+                  subtitle={config.subtitle}
+                />
+              </div>
 
-                {/* Animated Equalizer Visualizer */}
-                <div className="mt-1">
-                  <EqualizerVisualizer
-                    analyserNode={analyserRef.current}
-                    status={status}
-                    volume={volume}
-                    isMuted={isMuted}
-                    barCount={13}
-                  />
-                </div>
+              {/* Social Buttons */}
+              <div className="mt-1.5">
+                <SocialButtons links={config.socialLinks} />
+              </div>
 
-                {/* Secondary Metallic Banner */}
-                <div className="mt-2">
-                  <MetallicBanner
-                    stationName={activeStationName}
-                    subtitle={config.subtitle}
-                  />
-                </div>
-
-                {/* Social Buttons */}
-                <div className="mt-1">
-                  <SocialButtons links={config.socialLinks} />
-                </div>
-
-                {/* Slogan Footer Kicker */}
-                <div className="mt-1">
-                  <FooterKicker text={config.footerSlogan} />
-                </div>
-
-                {/* Virtual Phone Bottom Android/iOS Navigation Bar */}
-                <div className="w-full flex items-center justify-around pt-2 text-zinc-500 text-xs">
-                  <span className="font-mono text-sm tracking-widest">|||</span>
-                  <div className="w-3.5 h-3.5 rounded-sm border border-zinc-600" />
-                  <span className="font-mono text-sm">&lt;</span>
-                </div>
+              {/* Slogan Footer Kicker */}
+              <div className="mt-1.5">
+                <FooterKicker text={config.footerSlogan} />
               </div>
             </div>
           </div>

@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { IconType } from '../types';
+import { Radio, Music } from 'lucide-react';
+import rockLogoImg from '../assets/images/rock_metal_radio_logo_1792430917541.jpg';
 
 interface RockEmblemProps {
   type?: IconType;
@@ -8,16 +10,39 @@ interface RockEmblemProps {
 }
 
 export function RockEmblem({ type = 'badge', className = '', size = 48 }: RockEmblemProps) {
+  const [imgErrorStage, setImgErrorStage] = useState(0);
+
   if (type === 'badge') {
+    // Fallback visual: Si todas las opciones de imagen fallan, mostrar un círculo estilizado con icono musical
+    if (imgErrorStage >= 3) {
+      return (
+        <div
+          style={{ width: size, height: size }}
+          className={`relative shrink-0 rounded-full flex items-center justify-center bg-gradient-to-br from-zinc-800 via-zinc-900 to-black shadow-[0_0_12px_rgba(229,9,20,0.6)] border-2 border-[#FF2020] text-[#FF2020] ${className}`}
+          title="Rock & Metal Radio"
+        >
+          <Radio size={Math.round(size * 0.52)} className="animate-pulse" />
+        </div>
+      );
+    }
+
+    const currentSrc =
+      imgErrorStage === 0
+        ? rockLogoImg
+        : imgErrorStage === 1
+        ? '/logo-rock-metal.jpg'
+        : '/logo-rock-metal.svg';
+
     return (
       <div
         style={{ width: size, height: size }}
         className={`relative shrink-0 rounded-full p-[2px] bg-gradient-to-b from-zinc-200 via-zinc-500 to-zinc-900 shadow-[0_0_12px_rgba(229,9,20,0.6)] border border-[#FF2020]/80 overflow-hidden ${className}`}
       >
         <img
-          src="/src/assets/images/rock_metal_radio_logo_1792430917541.jpg"
-          alt="Rock & Metal Radio"
+          src={currentSrc}
+          alt="Logo de Rock & Metal Radio"
           className="w-full h-full object-cover rounded-full"
+          onError={() => setImgErrorStage((prev) => prev + 1)}
         />
       </div>
     );

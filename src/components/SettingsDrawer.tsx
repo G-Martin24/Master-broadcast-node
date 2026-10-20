@@ -12,6 +12,8 @@ import {
 } from 'lucide-react';
 import { StationConfig, IconType, RadioProgram } from '../types';
 import { RockEmblem } from './RockIcons';
+import rockLogoImg from '../assets/images/rock_metal_radio_logo_1792430917541.jpg';
+import skullCoverImg from '../assets/images/rock_metal_cover_1792428846792.jpg';
 
 interface SettingsDrawerProps {
   isOpen: boolean;
@@ -55,14 +57,14 @@ export function SettingsDrawer({
   const presetCovers = [
     {
       name: 'Rock & Metal Radio (Emblema Oficial)',
-      url: '/src/assets/images/rock_metal_radio_logo_1792430917541.jpg',
+      url: rockLogoImg || '/logo-rock-metal.jpg',
       artist: 'Rock & Metal Radio',
       track: 'Radio Online • En Vivo',
       album: 'ROCK Y MAS ROCK 100%',
     },
     {
       name: 'Iron Empire Skull',
-      url: '/src/assets/images/rock_metal_cover_1792428846792.jpg',
+      url: skullCoverImg || '/assets/images/rock_metal_cover_1792428846792.jpg',
       artist: 'Bloodsteel',
       track: 'Iron Empire',
       album: 'REIGN OF FIRE (2024)',

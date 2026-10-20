@@ -14,6 +14,7 @@ import {
   Tag,
 } from 'lucide-react';
 import { RadioMetadataResponse } from '../types/metadata';
+import skullCoverImg from '../assets/images/rock_metal_cover_1792428846792.jpg';
 
 interface LiveMetadataModalProps {
   isOpen: boolean;
@@ -145,12 +146,12 @@ export function LiveMetadataModal({
               {/* Song Album Art */}
               <div className="relative shrink-0 w-20 h-20 md:w-24 md:h-24 rounded-lg overflow-hidden border border-white/10 bg-zinc-950 shadow-md">
                 <img
-                  src={song?.art || '/src/assets/images/rock_metal_cover_1792428846792.jpg'}
+                  src={song?.art || skullCoverImg || '/assets/images/rock_metal_cover_1792428846792.jpg'}
                   alt={song?.title || 'Cover'}
                   referrerPolicy="no-referrer"
                   className="w-full h-full object-cover"
                   onError={(e) => {
-                    e.currentTarget.src = '/src/assets/images/rock_metal_cover_1792428846792.jpg';
+                    e.currentTarget.src = skullCoverImg || '/assets/images/rock_metal_cover_1792428846792.jpg';
                   }}
                 />
               </div>
@@ -241,12 +242,12 @@ export function LiveMetadataModal({
                     className="p-2 rounded-lg bg-zinc-900/40 hover:bg-zinc-900/70 border border-white/5 flex items-center gap-3 transition-colors"
                   >
                     <img
-                      src={item.song.art || '/src/assets/images/rock_metal_cover_1792428846792.jpg'}
+                      src={item.song.art || skullCoverImg || '/assets/images/rock_metal_cover_1792428846792.jpg'}
                       alt={item.song.title}
                       referrerPolicy="no-referrer"
                       className="w-9 h-9 rounded object-cover border border-white/10 shrink-0 bg-zinc-950"
                       onError={(e) => {
-                        e.currentTarget.src = '/src/assets/images/rock_metal_cover_1792428846792.jpg';
+                        e.currentTarget.src = skullCoverImg || '/assets/images/rock_metal_cover_1792428846792.jpg';
                       }}
                     />
                     <div className="min-w-0 flex-1">
