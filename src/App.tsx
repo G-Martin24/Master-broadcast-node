@@ -44,9 +44,9 @@ const DEFAULT_CONFIG: StationConfig = {
   footerSlogan: 'ROCK & METAL • RADIO ONLINE • 24 HS',
   iconType: 'badge',
   socialLinks: {
-    facebook: 'https://facebook.com',
-    instagram: 'https://instagram.com',
-    whatsapp: 'https://wa.me/',
+    facebook: 'https://www.facebook.com/RockAndMetalRadioOnline?locale=es_LA',
+    instagram: 'https://www.instagram.com/rockmetal_onlineradio/',
+    whatsapp: 'https://wa.me/5493764561004?text=Hola%2C%20quiero%20escuchar%20la%20radio',
     youtube: 'https://youtube.com',
   },
 };
@@ -137,7 +137,37 @@ export default function App() {
         if (parsed.streamUrl?.includes('streamtheworld') || !parsed.streamUrl) {
           parsed.streamUrl = DEFAULT_STREAM_URL;
         }
-        return { ...DEFAULT_CONFIG, ...parsed, streamUrl: DEFAULT_STREAM_URL };
+
+        // Migrate social links if they were generic placeholders
+        const socialLinks = {
+          ...DEFAULT_CONFIG.socialLinks,
+          ...parsed.socialLinks,
+        };
+        if (
+          !parsed.socialLinks?.instagram ||
+          parsed.socialLinks.instagram === 'https://instagram.com' ||
+          parsed.socialLinks.instagram.includes('instagram.com/rockmetalradio')
+        ) {
+          socialLinks.instagram = DEFAULT_CONFIG.socialLinks.instagram;
+        }
+        if (
+          !parsed.socialLinks?.facebook ||
+          parsed.socialLinks.facebook === 'https://facebook.com' ||
+          parsed.socialLinks.facebook.includes('facebook.com/rockmetalradio')
+        ) {
+          socialLinks.facebook = DEFAULT_CONFIG.socialLinks.facebook;
+        }
+        if (
+          !parsed.socialLinks?.whatsapp ||
+          parsed.socialLinks.whatsapp === 'https://wa.me/' ||
+          parsed.socialLinks.whatsapp.includes('5491123456789')
+        ) {
+          socialLinks.whatsapp = DEFAULT_CONFIG.socialLinks.whatsapp;
+        }
+
+        const merged = { ...DEFAULT_CONFIG, ...parsed, socialLinks, streamUrl: DEFAULT_STREAM_URL };
+        localStorage.setItem('rock_metal_radio_config', JSON.stringify(merged));
+        return merged;
       }
     } catch (e) {
       console.warn('Error reading stored config:', e);

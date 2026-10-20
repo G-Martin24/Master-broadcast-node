@@ -390,7 +390,7 @@ export function SettingsDrawer({
                       socialLinks: { ...form.socialLinks, instagram: e.target.value },
                     })
                   }
-                  placeholder="https://instagram.com/rockmetalradio"
+                  placeholder="https://www.instagram.com/rockmetal_onlineradio/"
                   className="w-full px-3 py-2 rounded-lg bg-zinc-900 border border-white/10 text-white text-xs font-mono focus:border-red-500 focus:outline-none"
                 />
               </div>
@@ -408,7 +408,7 @@ export function SettingsDrawer({
                       socialLinks: { ...form.socialLinks, facebook: e.target.value },
                     })
                   }
-                  placeholder="https://facebook.com/rockmetalradio"
+                  placeholder="https://www.facebook.com/RockAndMetalRadioOnline?locale=es_LA"
                   className="w-full px-3 py-2 rounded-lg bg-zinc-900 border border-white/10 text-white text-xs font-mono focus:border-red-500 focus:outline-none"
                 />
               </div>
@@ -426,7 +426,7 @@ export function SettingsDrawer({
                       socialLinks: { ...form.socialLinks, whatsapp: e.target.value },
                     })
                   }
-                  placeholder="https://wa.me/5491123456789"
+                  placeholder="https://wa.me/5493764561004?text=Hola%2C%20quiero%20escuchar%20la%20radio"
                   className="w-full px-3 py-2 rounded-lg bg-zinc-900 border border-white/10 text-white text-xs font-mono focus:border-red-500 focus:outline-none"
                 />
               </div>
