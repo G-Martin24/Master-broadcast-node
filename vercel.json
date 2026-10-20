@@ -1,0 +1,15 @@
+{
+  "framework": "vite",
+  "buildCommand": "vite build",
+  "outputDirectory": "dist",
+  "rewrites": [
+    {
+      "source": "/api/station-metadata",
+      "destination": "https://cesarradio.realserver.es/api/nowplaying/rock_y_metal"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
