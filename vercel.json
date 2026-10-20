@@ -8,11 +8,28 @@
       "destination": "https://cesarradio.realserver.es/api/nowplaying/rock_y_metal"
     },
     {
-      "source": "/((?!manifest\\.webmanifest|sw\\.js|icons/|assets/|favicon\\.ico|.*\\.[a-zA-Z0-9]+$).*)",
+      "source": "/((?!\\.well-known/|manifest\\.webmanifest|sw\\.js|icons/|assets/|favicon\\.ico|.*\\.[a-zA-Z0-9]+$).*)",
       "destination": "/index.html"
     }
   ],
   "headers": [
+    {
+      "source": "/.well-known/assetlinks.json",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/json; charset=utf-8"
+        },
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600"
+        }
+      ]
+    },
     {
       "source": "/manifest.webmanifest",
       "headers": [
