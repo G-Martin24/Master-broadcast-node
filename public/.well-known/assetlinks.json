@@ -1,11 +1,14 @@
 [
   {
-    "relation": ["delegate_permission/common.handle_all_urls"],
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
     "target": {
       "namespace": "android_app",
       "package_name": "app.vercel.master_broadcast_node.twa",
       "sha256_cert_fingerprints": [
-        "8B:69:32:73:BF:AD:EE:41:BA:91:0F:D2:B1:13:A4:41:E1:C8:26:76:6E:27:54:AF:1D:1C:49:DB:44:C9:31:FB"
+        "8B:69:32:73:BF:AD:EE:41:BA:91:0F:D2:B1:13:A4:41:E1:C8:26:76:6E:27:54:AF:1D:1C:49:DB:44:C9:31:FB",
+        "B1:FA:A0:A6:B4:0E:C6:B9:4B:F7:B0:8C:B0:BA:64:4F:1B:59:94:4B:D2:CB:52:38:86:79:A2:1F:06:1C:B1:CD"
       ]
     }
   }
