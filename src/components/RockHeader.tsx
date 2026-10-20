@@ -1,7 +1,8 @@
 import React from 'react';
-import { Menu, Timer } from 'lucide-react';
+import { Menu, Timer, Download } from 'lucide-react';
 import { RockEmblem } from './RockIcons';
 import { IconType } from '../types';
+import { usePWAInstall } from '../hooks/usePWAInstall';
 
 interface RockHeaderProps {
   stationName: string;
@@ -18,6 +19,7 @@ export function RockHeader({
   onOpenMenu,
   sleepTimerSeconds,
 }: RockHeaderProps) {
+  const { isInstallable, install } = usePWAInstall();
   // Format station title into rock metal style (highlighting & or second word in red if applicable)
   const renderFormattedTitle = (title: string) => {
     if (title.toUpperCase().includes('OKTUBRE')) {
@@ -72,8 +74,20 @@ export function RockHeader({
         </div>
       </div>
 
-      {/* Right Slot: Sleep Timer Badge (if active) + Menu Button */}
+      {/* Right Slot: Install Button (if browser prompts) + Sleep Timer + Menu Button */}
       <div className="flex items-center gap-2">
+        {isInstallable && (
+          <button
+            onClick={install}
+            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-[#E50914] hover:bg-[#FF2020] text-white text-xs font-bold tracking-wide transition-all shadow-[0_0_10px_rgba(229,9,20,0.6)] active:scale-95"
+            title="Instalar Rock & Metal Radio en tu dispositivo"
+          >
+            <Download size={14} />
+            <span className="hidden sm:inline">Instalar App</span>
+            <span className="sm:hidden">Instalar</span>
+          </button>
+        )}
+
         {sleepTimerSeconds !== null && (
           <div className="flex items-center gap-1 px-2 py-0.5 rounded bg-zinc-900 border border-red-500/30 text-[10px] text-red-400 font-mono">
             <Timer size={12} className="text-red-500 animate-pulse" />
